@@ -1,14 +1,38 @@
 import socket
+import pickle
 
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 host = "localhost"
 port = 50003
 s.connect((host, port))
+lst = [0, 0]
+
 
 def ts():
-   data = s.recv(1024).decode()
-   new_data = int(data) + 2
-   s.send(str(new_data).encode())
+   position = s.recv(1024).decode()
+
+   if int(position) >= -3 and int(position) <= 3:
+      lst[1] = 5
+      data_string = pickle.dumps(lst)
+      s.send(data_string)
+
+   if int(position) > -10 and int(position) < -3:
+      lst[1] = 50
+      data_string = pickle.dumps(lst)
+      s.send(data_string)
+   if int(position) > 3 and int(position) < 10:
+      lst[1] = -50
+      data_string = pickle.dumps(lst)
+      s.send(data_string)
+   print(lst[1])
+   '''
+   else:
+      lst[1] = 5
+      data_string = pickle.dumps(lst)
+      s.send(data_string)
+'''
+   #new_data = int(data) + 2
+   #s.send(str(new_data).encode())
 
 
 while True:
