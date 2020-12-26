@@ -13,7 +13,7 @@ serversocket.bind((host, port))
 position = random.randint(-10, 10)
 
 
-class client(Thread):
+class Client(Thread):
     def __init__(self, socket, address):
         Thread.__init__(self)
         self.sock = socket
@@ -67,7 +67,7 @@ serversocket.listen(5)
 print('Server started and listening')
 while 1:
     clientsocket, address = serversocket.accept()
-    client(clientsocket, address)
+    Client(clientsocket, address)
 
 
 
